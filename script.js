@@ -19,6 +19,19 @@ const monsterName = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
 
 
+const weapons = [{
+    name:"stick",
+    power: 5 
+  }, {
+    name:"dagger",
+    power: 30 
+  },{
+    name:"claw hammer",
+    power: 50
+  },{
+    name:"sword",
+    power: 100
+  }];
 // includes good lesson of using dot notation and bracket notation to create objects to re-use functions
 // for bigger projects - for reference look at the object and update function for buttons
 const locations = [{
@@ -55,7 +68,7 @@ function goStore() {
 }
 
 function goCave() {
-    button2.innerText = "Buy weapon (30 gold)";
+ update(locations[2]);
 }
 
 function fightDragon() {
@@ -65,7 +78,15 @@ function fightDragon() {
 //Step Two
 
 function buyHealth() {
-
+   if (gold >= 10) {
+    gold -= 10;
+    health += 10;
+    goldText.innerText = gold;
+    healthText.innerText = health;
+   }
+  else {
+    text.innerText = "You do not have enough gold to buy health.";
+  }  
 }
 
 
