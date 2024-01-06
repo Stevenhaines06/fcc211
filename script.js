@@ -91,7 +91,14 @@ function buyHealth() {
 
 
 function buyWeapon() {
-  
+  if (gold >= 30) {
+    gold -= 30;
+    currentWeapon ++;
+    // or currentWeapon += 1
+    goldText.innerText = gold;
+    let newWeapon = weapons;
+    text.innerText = "You now have a new weapon."
+  }
 }
 
 function fightSlime() {
