@@ -32,6 +32,24 @@ const weapons = [{
     name:"sword",
     power: 100
   }];
+
+
+const monsters = [{
+    name: "slime",
+    level: 2,
+    health: 15
+  },
+  {
+    name: "fanged beast",
+    level: 8,
+    health: 60
+  },
+  {
+    name: "dragon",
+    level: 20,
+    health: 300
+  }
+  ];
 // includes good lesson of using dot notation and bracket notation to create objects to re-use functions
 // for bigger projects - for reference look at the object and update function for buttons
 const locations = [{
@@ -71,9 +89,7 @@ function goCave() {
  update(locations[2]);
 }
 
-function fightDragon() {
-    button3.innerText = "Buy 10 health (10 gold)";
-}
+
 
 //Step Two
 
@@ -91,14 +107,35 @@ function buyHealth() {
 
 
 function buyWeapon() {
-  if (gold >= 30) {
-    gold -= 30;
-    currentWeapon ++;
-    // or currentWeapon += 1
-    goldText.innerText = gold;
-    let newWeapon = weapons[currentWeapon].name;
-    text.innerText = "You now have a " + newWeapon + ".";
+    if (currentWeapon < weapons.length - 1) {
+      if (gold >= 30) {
+        gold -= 30;
+        currentWeapon++;
+        goldText.innerText = gold;
+        let newWeapon = weapons[currentWeapon].name;
+        text.innerText = "You now have a " + newWeapon + ".";
+        inventory.push(newWeapon);
+        text.innerText += " In your inventory you have: " + inventory;
+      } else {
+        text.innerText = "You do not have enough gold to buy a weapon.";
+      }
+    } else {
+      text.innerText = "You already have the most powerful weapon!"
+      button2.innerText = "Sell weapon for 15 gold";
+      button2.onclick = sellWeapon;
+    }
   }
+
+function sellWeapon() {
+    if (inventory.length > 1) {
+        gold += 15;
+    goldText.innerText = gold;
+    let currentWeapon = inventory.shift();
+    text.innerText = "You sold a " + currentWeapon + ".";
+    text.innerText += " In your inventory you have: " + inventory;
+    } else {
+        text.innerText = "Don't sell your only weapon!";
+    }
 }
 
 function fightSlime() {
@@ -107,6 +144,10 @@ function fightSlime() {
 
 function fightBeast() {
 
+}
+
+function fightDragon() {
+    button3.innerText = "Buy 10 health (10 gold)";
 }
 
 function update(location) {
