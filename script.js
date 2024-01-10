@@ -69,12 +69,30 @@ const locations = [{
     "button text": ["Fight slime", "Fight fanged beast", "Go to town square"],
     "button functions": [fightSlime, fightBeast, goTown],
     text: "You enter the cave. You see some monsters."
-  }];
+  },{
+    name: "fight",
+    "button text": ["Attack", "Dodge", "Run"],
+    "button functions": [attack, dodge, goTown],
+    text: "You are fighting a monster."
+  }
+];
 
 //initialize buttons
 button1.onclick = goStore;
 button2.onclick = goCave;
 button3.onclick = fightDragon;
+
+function update(location) {
+    button1.innerText = location["button text"][0];
+    button2.innerText = location["button text"][1];
+    button3.innerText = location["button text"][2];
+
+    button1.onclick = location["button functions"][0];
+    button2.onclick = location["button functions"][1];
+    button3.onclick = location["button functions"][2];
+
+    text.innerText = location.text;
+}
 
 
 function goTown() {
@@ -139,25 +157,33 @@ function sellWeapon() {
 }
 
 function fightSlime() {
+    fighting = 0;
+    goFight();
+  }
+  
 
+  function fightBeast() {
+    fighting = 1;
+      goFight();
+  }
+  
+  function fightDragon() {
+    fighting = 2;
+      goFight();
+  }
+
+function goFight() {
+    monsterHealth = monsters[fighting].health;
+    update(locations[3]);
+    monsterStats.style.display = "block";
+    monsterName.innerText = monsters[fighting].name;
+    monsterHealthText.innerText = monsterHealth;
 }
 
-function fightBeast() {
-
+function attack() {
+    text.innerText = "The " + monsters[fighting].name + " attacks."
 }
 
-function fightDragon() {
-    button3.innerText = "Buy 10 health (10 gold)";
-}
-
-function update(location) {
-    button1.innerText = location["button text"][0];
-    button2.innerText = location["button text"][1];
-    button3.innerText = location["button text"][2];
-
-    button1.onclick = location["button functions"][0];
-    button2.onclick = location["button functions"][1];
-    button3.onclick = location["button functions"][2];
-
-    text.innerText = location.text;
+function dodge() {
+  
 }
