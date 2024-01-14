@@ -138,22 +138,22 @@ function buyWeapon() {
         text.innerText = "You do not have enough gold to buy a weapon.";
       }
     } else {
-      text.innerText = "You already have the most powerful weapon!"
+      text.innerText = "You already have the most powerful weapon!";
       button2.innerText = "Sell weapon for 15 gold";
       button2.onclick = sellWeapon;
     }
   }
 
 function sellWeapon() {
-    if (inventory.length > 1) {
-        gold += 15;
+  if (inventory.length > 1) {
+    gold += 15;
     goldText.innerText = gold;
     let currentWeapon = inventory.shift();
     text.innerText = "You sold a " + currentWeapon + ".";
     text.innerText += " In your inventory you have: " + inventory;
-    } else {
-        text.innerText = "Don't sell your only weapon!";
-    }
+  } else {
+    text.innerText = "Don't sell your only weapon!";
+  }
 }
 
 function fightSlime() {
@@ -181,7 +181,17 @@ function goFight() {
 }
 
 function attack() {
-    text.innerText = "The " + monsters[fighting].name + " attacks."
+    text.innerText = "The " + monsters[fighting].name + " attacks.";
+    text.innerText += " You attack it with your " + weapons[currentWeapon].name + ".";
+  health = health -= monsters[fighting].level;
+  monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
+  healthText.innerText = health;
+  monsterHealthText.innerText = monsterHealth;
+  if (health <= 0) {
+    lose();
+  } else if (monsterHealth <= 0) {
+    defeatMonster();
+  }
 }
 
 function dodge() {
